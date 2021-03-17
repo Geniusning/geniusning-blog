@@ -1,0 +1,101 @@
+### 1.怎么删除不需要的分支
+```
+git branch -d 分支名
+
+查看所有分支
+git branch -av
+```
+
+### 2.怎么修改最新commit的message的信息
+```
+git commit -amend
+```
+
+### 3.怎么修改老旧的commit的message信息
+```
+首先选择需要修改的commit的message的前一个commit id
+然后命令：git rebase -i commitId
+```
+
+### 4.怎样把连续的多个commit整理成1个？
+```
+ 选择一个起始commit id，
+ 命令：git  rebase -i commitId
+ 
+ 进行交互式操作
+ pick commitId xxx message
+ s commitId  yyy message
+ 意思是把 commit 为yyy的合并到xxx里面去
+ 
+ 选择 command命令 为squash参数
+ s, squash <commit> = use commit, but meld into previous commit
+```
+
+### 5.怎么比较暂存区和head所含文件的差异
+```
+git add 新修改的文件
+之后执行 git diff --cached
+```
+
+### 6.工作区和暂存区所含文件的差异
+```
+修改文件后使用：git diff 比较所有工作区文件和暂存区文件差异；
+如果指定文件差异则使用命令；git diff -- 文件名（可多个）
+```
+
+### 7.如何让暂存区恢复到和HEAD一样
+```
+git reset HEAD
+```
+
+### 8.如何让工作区的文件的文件恢复成和暂存区一样
+```
+git restore  文件名
+```
+
+### 9.怎么取消暂存区部分文件的修改，恢复到和HEAD一样
+```
+git reset HEAD -- （文件名可多个）
+```
+
+### 10.消除最近的几次提交 （慎用）
+```
+git reset --hard (commitId,使HEAD指向最新commit)
+```
+
+### 11.看看不同提交的指定文件的差异
+```
+git diff 分支名 分支名 -- 指定的文件（e.g. index.html）
+也可以：git diff commitId1 commitId2 -- 指定的文件
+```
+
+### 12.删除文件的方法
+```
+git rm filename  删除后直接提交到暂存区
+```
+
+### 13.开发中紧急加塞任务怎么处理
+```
+先使用 git stash 把当前工作区的更改存起来，然后修复紧急的bug，修复完紧急bug后，可以使用
+git stash apply 或者 git stash pop 把先前工作区的代码调出来。
+apply 保存 stash list 记录，pop直接清除 stash list记录
+
+```
+### 14.如何将git仓库备份到本地
+```
+git clone --bare（工作区不备份）file://本地备份路径/.git (file:///Users/gaosui/liuning/git-learn/.git) zhineng.git
+```
+
+### 15.基于远程分支创建本地分支
+```
+1.首先查看所有分支（包括本地分支和远程分支）
+git branch -av 
+
+2.基于远程的某个分支床创建本地分支并切换
+git checkout -b 本地分支名 远程分支名
+```
+
+### 16.拉取远端所有分支到本地
+```
+git fetch origin
+```
